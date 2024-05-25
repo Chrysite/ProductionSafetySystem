@@ -2,6 +2,8 @@ import streamlit as st
 import time
 from streamlit.components.v1 import html
 
+from conf.path import md_path
+
 st.set_page_config(
     page_title="知识学习模块",layout="wide"
 )
@@ -42,12 +44,6 @@ def read_markdown_file(markdown_file):
     with open(markdown_file, encoding='utf-8') as fp:
         w = fp.read()
     return w
-
-md_path = "D:/学习/毕业设计/project/static/markdown"
-images_knowledge_path = "D:/学习/毕业设计/project/knowledge"
-
-
-
 
 if select_box == "1.法律法规":
     intro_markdown = read_markdown_file(md_path + "/1.法律法规.md")

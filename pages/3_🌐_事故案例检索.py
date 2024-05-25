@@ -1,8 +1,11 @@
+import os
+
 import pandas as pd
 import streamlit as st
 import json
 
 from conf.menu import menu_items
+from conf.path import case_path
 
 st.set_page_config(page_title="国内外生产安全事故案例检索", page_icon="🌐", layout="wide", menu_items=menu_items)
 st.markdown("### 🌐 国内外生产安全事故案例")
@@ -66,22 +69,20 @@ if not st.session_state.select:
             # 初始化
             st.session_state.show = False
             # 火灾事件
-            f = open('D:/学习/毕业设计/project/static/cases/fire.json', encoding='utf-8')
-            content = f.read()
+            with open(os.path.join(case_path, "fire.json"), "r", encoding="utf-8") as fp:
+                content = json.load(fp)
             fire_item = json.loads(content)
-            f.close()
+
 
             # 泄露事件
-            f = open('D:/学习/毕业设计/project/static/cases/divulge.json', encoding='utf-8')
-            content = f.read()
+            with open(os.path.join(case_path, "divulge.json"), "r", encoding="utf-8") as fp:
+                content = json.load(fp)
             divulge_item = json.loads(content)
-            f.close()
 
             # 中毒事件
-            f = open('D:/学习/毕业设计/project/static/cases/poisoning.json', encoding='utf-8')
-            content = f.read()
+            with open(os.path.join(case_path, "poisoning.json"), "r", encoding="utf-8") as fp:
+                content = json.load(fp)
             poisoning_item = json.loads(content)
-            f.close()
 
             style_len = len(style)
             # 判断是否选择事故类型检索条件，不等于0说明有检索条件

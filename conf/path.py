@@ -30,8 +30,8 @@ images_knowledge_path = os.path.join(images_path, "knowledge")
 
 # JSON 文件
 json_path = os.path.join(static_path, "json")
-# 考试系统需要用到的 JSON 文件
-json_exam_path = os.path.join(json_path, "exam")
+# 检索系统需要用到的 JSON 文件
+case_path = os.path.join(static_path, "case")
 
 # md 文件
 md_path = os.path.join(static_path, "markdown")
