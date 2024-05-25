@@ -1,0 +1,12 @@
+### 关于本程序
+- 学校：华南理工大学
+- 学院：化学与化工学院
+- 年级：2020级
+- 专业：应用化学
+- 毕设：化工类企业生产安全应急预案模拟演练系统开发（含知识考试和过程仿真）
+- 姓名：翁艺芝
+    - Github：https://github.com/Chrysite
+    - 联系方式：3022909548@qq.com
+- 导师：方利国
+    - Github：https://github.com/gzlgfang
+    - 联系方式：lgfang@scut.edu.cn
