@@ -1,5 +1,6 @@
 import streamlit as st
 
+# from pages.text
 
 
 def back():
@@ -25,6 +26,7 @@ def show_result(amount,single,multiple,text,single_answers,multiple_answers,text
             score += 1
         else:
             pass
+    single_score = score
     # 多选
     # 用户选择的选项
     select_options = []
@@ -40,13 +42,28 @@ def show_result(amount,single,multiple,text,single_answers,multiple_answers,text
         if select_options[i] == multiple[i]["answer"]:
             score += 2
 
+    multiple_score = score - single_score
+
     # 填空
     for i,question in enumerate(text):
+        # 关键词检索
         if text_answers[i] == text[i]['answer']:
             score += 2
+        else:
+            if text_answers[i] in text[i]['keywords']:
+                score +=2
+    text_score = score - multiple_score
 
+    total_score = round(amount*1.5)
+    current_score = score
+    pre_score = round(100*int(score)/(1.5*amount),2)
+    st.markdown(f"##### 总分：{str(total_score)}")
     st.markdown(f"##### 您的分数为：{score}")
-    st.markdown(f"##### 百分制分数为：{str(round(100*int(score)/(1.5*amount),2))}")
+    st.markdown(f"##### 百分制分数为：{str(pre_score)}")
+
+    gradePaper(total_score,current_score,pre_score,single_score,multiple_score,text_score)
+
+
 
     with st.expander("展开原卷"):
 
@@ -76,5 +93,9 @@ def show_result(amount,single,multiple,text,single_answers,multiple_answers,text
             if text_answers[i] == text[i]['answer']:
                 st.success("您的答案：" + str(text_answers[i]))
             else:
-                st.error("您的答案：" + str(text_answers[i]))
-                st.info("正确答案：" + str(text[i]['answer']))
+                if text_answers[i] in text[i]['keywords']:
+                    st.success("您的答案：" + str(text_answers[i]))
+                    st.info("正确答案：" + str(text[i]['answer']))
+                else:
+                    st.error("您的答案：" + str(text_answers[i]))
+                    st.info("正确答案：" + str(text[i]['answer']))

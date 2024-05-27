@@ -19,7 +19,6 @@ def load_chemicals():
 if "chemicals_data" not in st.session_state:
     st.session_state.chemicals_data = load_chemicals()
 
-
 st.radio(
     "选择检索方式",
     ("关键词检索", "CAS检索"),
@@ -46,6 +45,7 @@ if st.session_state.get("chemicals_query_mode") == "关键词检索":
                 i['match_num'] = match_num
                 data_name.append(i['name'][0])
                 data.append(i)
+
         if data != []:
             # 按照匹配系数大小，从大到小排列
             sorted_list = sorted(data, key=lambda x: x['match_num'],reverse=True)

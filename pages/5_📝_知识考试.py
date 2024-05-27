@@ -21,11 +21,14 @@ if 'single_data' not in st.session_state:
         st.session_state.multiple_data = json.load(fp)
     with open(os.path.join(json_path, "text.json"), "r", encoding="utf-8") as fp:
         st.session_state.text_data = json.load(fp)
+    with open(os.path.join(json_path, "text_1.json"), "r", encoding="utf-8") as fp:
+        st.session_state.text_1_data = json.load(fp)
 
 if 'single_answers' not in st.session_state:
     st.session_state.single_answers = []
     st.session_state.multiple_answers = []
     st.session_state.text_answers = []
+    st.session_state.text_1_answers = []
 
 if not st.session_state.submit:
     st.session_state.single_answers = []
@@ -76,6 +79,13 @@ if selected != st.session_state['selected_option']:
     st.session_state.submit = False
     st.session_state.restore = False
 
+    if st.session_state['selected_option'] == "二级（40题）":
+        st.session_state.text_data = st.session_state.text_1_data
+    if questions_amount == 60:
+        st.session_state.text_data = st.session_state.text_1_data
+    else:
+        pass
+
 # 选择20题难度
 if questions_amount == 20:
     st.session_state.amount = 20
@@ -111,7 +121,6 @@ if not questions_amount == 0:
                 text = random.sample(text_data['questions'],int(amount/4))
                 st.session_state.text = text
             # 遍历json文件中的每个问题
-
             for i, question in enumerate(single):
                 st.write(f"问题 {i + 1}: {question['question']}")
                 # 获取选项

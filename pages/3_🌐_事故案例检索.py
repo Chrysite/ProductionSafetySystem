@@ -1,5 +1,4 @@
 import os
-
 import pandas as pd
 import streamlit as st
 import json
@@ -21,6 +20,7 @@ if 'select' not in st.session_state:
     st.session_state.show = False
     st.session_state.pd = None
     st.session_state.event = None
+
 
 # 返回按钮
 def back():
@@ -68,20 +68,20 @@ if not st.session_state.select:
         if select_button:
             # 初始化
             st.session_state.show = False
+
             # 火灾事件
             with open(os.path.join(case_path, "fire.json"), "r", encoding="utf-8") as fp:
-                content = json.load(fp)
+                content = fp.read()
             fire_item = json.loads(content)
-
 
             # 泄露事件
             with open(os.path.join(case_path, "divulge.json"), "r", encoding="utf-8") as fp:
-                content = json.load(fp)
+                content = fp.read()
             divulge_item = json.loads(content)
 
             # 中毒事件
             with open(os.path.join(case_path, "poisoning.json"), "r", encoding="utf-8") as fp:
-                content = json.load(fp)
+                content = fp.read()
             poisoning_item = json.loads(content)
 
             style_len = len(style)
@@ -132,8 +132,6 @@ if not st.session_state.select:
                         st.session_state.item = area_list
                         st.session_state.pd = area_pd
 
-
-
                 # 无选择
                 else:
                     st.warning("请选择地区")
@@ -145,7 +143,7 @@ if not st.session_state.select:
 # 若”st.session_state.show“为True，呈现事故案例具体信息
 if st.session_state.show:
     st.write(st.session_state.pd)
-    st.write(st.session_state.event)
+    # st.write(st.session_state.event)
 
 st.session_state.event = st.selectbox("请选择要查看具体信息的事故：", st.session_state.name)
 if st.button(label='选择', use_container_width=True):
