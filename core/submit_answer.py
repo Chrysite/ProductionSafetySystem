@@ -61,7 +61,7 @@ def show_result(amount,single,multiple,text,single_answers,multiple_answers,text
     st.markdown(f"##### 您的分数为：{score}")
     st.markdown(f"##### 百分制分数为：{str(pre_score)}")
 
-    gradePaper(total_score,current_score,pre_score,single_score,multiple_score,text_score)
+    # gradePaper(total_score,current_score,pre_score,single_score,multiple_score,text_score)
 
 
 
@@ -93,9 +93,16 @@ def show_result(amount,single,multiple,text,single_answers,multiple_answers,text
             if text_answers[i] == text[i]['answer']:
                 st.success("您的答案：" + str(text_answers[i]))
             else:
-                if text_answers[i] in text[i]['keywords']:
-                    st.success("您的答案：" + str(text_answers[i]))
-                    st.info("正确答案：" + str(text[i]['answer']))
-                else:
+                # if text_answers[i] in text[i]['keywords']:
+                correct = 0
+                for j in text[i]['keywords']:
+                    if j in text_answers[i]:
+                # st.write(text_answers[i])
+                # st.write(text[i]['keywords'])
+                        correct+=1
+                        if correct == 1:
+                            st.success("您的答案：" + str(text_answers[i]))
+                            st.info("正确答案：" + str(text[i]['answer']))
+                if correct == 0:
                     st.error("您的答案：" + str(text_answers[i]))
                     st.info("正确答案：" + str(text[i]['answer']))
